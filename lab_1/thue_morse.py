@@ -1,6 +1,7 @@
 def get_sequence_item(k):
     res = 0
-    for i in range(2 ** k):
-        res = (res << 1) | (bin(i).count('1') % 2)
+    for i in range(k):
+        bias = (1 << (1 << i))
+        res = res * bias + (~res & (bias - 1))
 
     return bin(res)
