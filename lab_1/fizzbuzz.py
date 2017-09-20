@@ -1,6 +1,6 @@
 if __name__ == '__main__':
     res_list = []
-    for x in range(1, 51):
+    for x in range(1, 50):
         res = ''
         if x % 3 == 0:
             res += 'Fizz'
