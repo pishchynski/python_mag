@@ -7,7 +7,7 @@ def is_lucky(number: int):
             last_digits_sum += number_copy % 10
         else:
             first_digits_sum += number_copy % 10
-        number_copy //= 10
+            number //= 10
     return last_digits_sum == first_digits_sum
 
 
@@ -21,3 +21,7 @@ def get_nearest_lucky_ticket(ticket_number: int):
             return upper_number
         lower_number -= 1
         upper_number += 1
+
+
+if __name__ == '__main__':
+    print(get_nearest_lucky_ticket(123411))
