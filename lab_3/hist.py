@@ -21,6 +21,8 @@ def distribute(dataset, k, visual_max_len=20):
 
     for element in dataset:
         hist[min(int(k * (element - min_elem) / (max_elem - min_elem)), k - 1)] += 1
+
+    coef = 1
     if visual_max_len > 0:
         coef = max(hist) // visual_max_len + 1
 
