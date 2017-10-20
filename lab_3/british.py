@@ -2,7 +2,6 @@ import re
 import argparse
 import os
 import random
-import sys
 
 
 def is_file_valid(parser, arg):
@@ -16,7 +15,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Shuffles letters in text words.")
     parser.add_argument("-r", "--random", action="store_true",
                         help="If checked, letters in words will be shuffled randomly. Else, alphabetically.")
-    parser.add_argument("-f","--file", dest="filename",
+    parser.add_argument("-f", "--file", dest="filename",
                         help="Input file with text.", metavar="FILE",
                         type=lambda x: is_file_valid(parser, x))
 
