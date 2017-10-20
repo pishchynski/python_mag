@@ -1,7 +1,9 @@
+import codecs
 import re
 import argparse
 import os
 import random
+import sys
 
 
 def is_file_valid(parser, arg):
@@ -32,38 +34,37 @@ def get_text(filename, console_text):
     text = ""
 
     if filename:
-        with open(filename, "r") as text_file:
+        with codecs.open(filename, mode="r", encoding="utf-8") as text_file:
             text = text_file.read()
     else:
-        text = raw_input("Enter text to shuffle:")
+        print "Enter text to shuffle:"
+        sys.stdout.flush()
+        text = raw_input()
     return text
 
 
 def shuffle_word(word, is_random):
     res = ""
     if is_random:
-        letters = list(word)
+        letters = list(word[1:-1])
         random.shuffle(letters)
-        res = "".join(letters)
+        res = word[0] + "".join(letters) + word[-1]
     else:
         res = "".join(sorted(word))
     return res
 
 
 def shuffle(text, is_random):
-    split_regex = "([\s\.\,]+)"
-    splitted_text = re.split(split_regex, text)
-    res = []
-    for word in splitted_text:
-        if word and not re.match(split_regex, word):
-            if len(word) <= 2:
-                res.append(word)
-                continue
-            word = word.decode("utf-8")
-            word = word[0] + shuffle_word(word[1:-1], is_random) + word[-1]
-            word = word.encode("utf-8")
-        res.append(word)
-    return "".join(res)
+    pattern = r'[\w\d-]+'
+
+    res = list(text)
+    for word in re.finditer(pattern, text, re.U):
+        if word.end() - word.start() + 1 <= 3:
+            res[word.start():word.end()] = word
+            continue
+
+        res[word.start():word.end()] = shuffle_word(text[word.start():word.end()], is_random)
+    return "".join(res).encode("utf-8")
 
 
 def main():
