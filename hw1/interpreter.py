@@ -45,11 +45,10 @@ def infix_to_postfix(expr):
                 top_token = stack.pop()
         else:
             j = i + 1
-            if j < len(expr):
-                while expr[j] in "0123456789.":
-                    sym += expr[j]
-                    j += 1
-                i = j - 1
+            while j < len(expr) and expr[j] in "0123456789.":
+                sym += expr[j]
+                j += 1
+            i = j - 1
             postfix.append(sym)
         i += 1
 
