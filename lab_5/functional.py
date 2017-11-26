@@ -44,3 +44,16 @@ def scalar_product(first, second):
 
     return result
 
+
+def flatten(iterable):
+    for item in iterable:
+        if isinstance(item, str):
+            yield item
+        else:
+            try:
+                iterator = iter(item)
+
+                for elem in flatten(iterator):
+                    yield elem
+            except TypeError:
+                yield item
