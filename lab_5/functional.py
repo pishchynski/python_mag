@@ -1,4 +1,5 @@
 import itertools
+import os
 
 
 def get_base(number):
@@ -57,3 +58,38 @@ def flatten(iterable):
                     yield elem
             except TypeError:
                 yield item
+
+
+def listdir(node):
+    cwd = os.getcwd()
+    for item in os.listdir(cwd):
+        try:
+            os.chdir(cwd + "/" + item)
+            d = os.getcwd().split("/")[-1]
+            node[item] = {}
+            listdir(node[item])
+        except:
+            node[item] = "file"
+
+
+def walk_files(path):
+    tree = {}
+    path = path.rstrip(os.sep)
+    start = path.rfind(os.sep) + 1
+
+    for root, dirs, files in os.walk(path):
+        subdirs = path[start:].split(os.sep)
+        for subdir in subdirs:
+            tree = tree[subdir]
+
+            if dirs:
+                for directory in dirs:
+                    tree[directory] = {}
+            else:
+                tree[subdir] = files
+
+    return tree
+
+
+if __name__ == '__main__':
+    print walk_files('D:\\distr')
