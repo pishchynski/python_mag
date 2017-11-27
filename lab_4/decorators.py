@@ -10,8 +10,8 @@ def memorize(func):
             if arguments not in cache:
                 cache[arguments] = func(*args)
             return cache[arguments]
-		else:
-		    return func(*args, **kwargs)
+        else:
+            return func(*args, **kwargs)
 
     return wrapper
 
