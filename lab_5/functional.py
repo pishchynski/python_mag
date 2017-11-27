@@ -69,7 +69,7 @@ def add_node(node, path):
                 add_node(node[item], path + os.sep + item)
             except OSError:
                 node[item] = path + os.sep + item
-    except:
+    except OSError:
         node[path.split(os.sep)[-1]] = path
 
 
