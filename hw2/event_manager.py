@@ -1,5 +1,6 @@
 from collector import Collector
 
+
 class EventManager:
     def __init__(self, packages):
         self.index = 0
@@ -7,7 +8,7 @@ class EventManager:
 
     def notify(self):
         try:
-            self.collector.collect()
+            self.collector.execute(self.index)
         except Exception as e:
             raise e
 
